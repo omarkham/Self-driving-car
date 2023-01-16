@@ -8,6 +8,26 @@ class NeuralNetwork{
         }
     }
 
+    static sigmoid(x) {
+        return 1 / (1 + Math.exp(-x));
+    }
+    
+    static feedForward(givenInputs, network) {
+        let inputs = givenInputs;
+        for (let i = 0; i < network.levels.length; i++) {
+            let outputs = new Array(network.levels[i].outputs.length);
+            for (let j = 0; j < outputs.length; j++) {
+                let sum = network.levels[i].biases[j];
+                for (let k = 0; k < inputs.length; k++) {
+                    sum += inputs[k] * network.levels[i].weights[k][j];
+                }
+                outputs[j] = NeuralNetwork.sigmoid(sum);
+            }
+            inputs = outputs;
+        }
+        return inputs;
+    }
+
     static feedForward(givenInputs,network){
         let outputs=Level.feedForward(
             givenInputs,network.levels[0]);
@@ -87,3 +107,4 @@ class Level{
         return level.outputs;
     }
 }
+
