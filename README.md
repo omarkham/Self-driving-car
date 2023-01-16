@@ -15,7 +15,7 @@ This project is intended to simulate self driving car model and how they make th
 In this project, We draw the car via Canvas JS and I tried to make the car's movement close to reality in terms of turning, reversing and many other things.
 
 - In terms of turning, We relied on the turning angle after determining it depending on the unit circle.
-![](https://user-images.githubusercontent.com/95939886/212678809-b3253354-044e-4976-aac7-26396ff42868.png | width=40)
+![](https://user-images.githubusercontent.com/95939886/212678809-b3253354-044e-4976-aac7-26396ff42868.png =250x250)
 
 
 - In terms of forward and backward movement, it is controlled with speed and acceleration, the speed becomes constant when the vehicle reaches the specified maximum speed.
