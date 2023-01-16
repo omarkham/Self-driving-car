@@ -20,3 +20,5 @@ https://user-images.githubusercontent.com/95939886/211327055-c850879b-4126-498c-
 Third iteration of AI car. Added traffic and car visuals. AI model is able to efficiently and accurately traverse the traffic.
 https://user-images.githubusercontent.com/95939886/211326612-8fec878a-3b4e-476d-878e-8426a93f084f.mp4
 
+#5 Fine-tuned AI car. More accurate and reliable.
+https://www.youtube.com/watch?v=nTFgwulm2fU
