@@ -15,7 +15,7 @@ This project is intended to simulate self driving car model and how they make th
 In this project, We draw the car via Canvas JS and I tried to make the car's movement close to reality in terms of turning, reversing and many other things.
 
 - In terms of turning, We relied on the turning angle after determining it depending on the unit circle.
-<img src="https://user-images.githubusercontent.com/95939886/212678809-b3253354-044e-4976-aac7-26396ff42868.png" width = 40 align= left>
+<img src="https://user-images.githubusercontent.com/95939886/212678809-b3253354-044e-4976-aac7-26396ff42868.png" width = 200 align= left>
 
 
 - In terms of forward and backward movement, it is controlled with speed and acceleration, the speed becomes constant when the vehicle reaches the specified maximum speed.
@@ -24,7 +24,7 @@ In this project, We draw the car via Canvas JS and I tried to make the car's mov
 The road is created using Canvas with a dynamic number of lanes.
 
 - The number of lanes is determined and the lane split based on the given number by linear interpolation.
-<img src ="https://user-images.githubusercontent.com/95939886/212676184-a03ba865-10b1-4bdc-a406-c4ec3ef7df9a.png" width = 40 align= left>
+<img src ="https://user-images.githubusercontent.com/95939886/212676184-a03ba865-10b1-4bdc-a406-c4ec3ef7df9a.png" width = 200 align= left>
 
 ```
 function linearInterpolation(A, B, t) {
@@ -35,7 +35,7 @@ return A + (B - A) * t;
 
 ## Artificial Sensors
 We build a simple car model with 5 rays upfront (as an initial value, you can customize that). These rays will detect cars and road borders.
-<img src = "https://user-images.githubusercontent.com/95939886/212676219-f60236b3-22c7-4635-8ec0-3a438e6344d6.png" width = 40 align= left>
+<img src = "https://user-images.githubusercontent.com/95939886/212676219-f60236b3-22c7-4635-8ec0-3a438e6344d6.png" width = 200 align= left>
 
 - It has a certain length and spread in which it tries to detect the obstacle.
 - Each of them has its reading so that it is displayed on it in a different color and also stored for use.
@@ -65,7 +65,7 @@ function polysIntersect(poly1, poly2) {
 
 ## Traffic simulation
 
-<img src = "https://user-images.githubusercontent.com/95939886/212676635-ddbf20b2-7571-4118-a6f9-084040ab0baf.png" width = 40 align= left>
+<img src = "https://user-images.githubusercontent.com/95939886/212676635-ddbf20b2-7571-4118-a6f9-084040ab0baf.png" width = 200 align= left>
 
 Traffic is generated randomly by the program. Generated cars are added to the traffic array with a random speed, car color, and x and y position. Generated cars were only added to the traffic array if their location was not the same as another car, thus not allowing cars to spawn on top of each other.
 
@@ -80,7 +80,7 @@ It contain three layers :
 We built our neural network by splitting it into two levels to make implementation easier. The levels are linked by links that have random weights at first, These weights range from [-1, 1]
 
 Each level Output has biases ranging from [-1, 1]
-<img src = "https://user-images.githubusercontent.com/95939886/212676903-26aa4e27-3314-4ce9-8727-b22e8b5570c6.png" width = 40 align= left>
+<img src = "https://user-images.githubusercontent.com/95939886/212676903-26aa4e27-3314-4ce9-8727-b22e8b5570c6.png" width = 200 align= left>
 
 ## How will neural networks work in our project?
 It all starts when the sensors pick up something close to them, then these signals are read, analyzed and sent as inputs to our first level in neural networks, then each output we have at the first level is calculated as the sum of the link weight multiplied by the input, and checked if possible We take advantage of this output (i.e., can it help us to avoid a certain obstacle) by comparing it with bias, and accordingly making it an output, and this process is repeated at all the levels we have in the neural networks.
