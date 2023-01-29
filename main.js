@@ -144,7 +144,7 @@ function generateCars(N){
 
 //work in progress for scoreboard
 
-/*function getCurrentScore(M) {
+function getCurrentScore(M) {
     score = M*stopTimer();
     return score;
 }
@@ -184,7 +184,7 @@ function showLeaderboard() {
     leaderboard.id = "leaderboard";
     document.body.appendChild(leaderboard);
 }
-*/
+
 function animate(time){
     //to update each car of traffic according to the road
     for(let i=0;i<traffic.length;i++){
