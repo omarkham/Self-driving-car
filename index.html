@@ -10,10 +10,14 @@
 <body>
     <canvas id="carCanvas"></canvas>
     <p id="elapsed-time"></p>
+    <div id="leaderboardContainer" style="display:none;">
+        <table id="leaderboardTable"></table>
+        <button id="close-leaderboard">Close Leaderboard</button>
+    </div>    
     <div id="verticalButtons">
         <button onclick="save()">💾</button>
         <button onclick="discard()">🗑️</button>
-        <button onclick = "stopTimer(); showLeaderboard()">⛔</button>
+        <button onclick = "stopTimer(); submitScore(); showLeaderboard()">⛔</button>
         <button onclick = "resetAll()">↻</button>
         <div class = "numberOfCar">
             <span>🚗</span>
