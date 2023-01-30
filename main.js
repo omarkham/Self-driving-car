@@ -1,5 +1,5 @@
 let intervalId;
-
+let elapsedSeconds
 function startTimer() {
     let startTime = new Date();
     intervalId = setInterval(function(){
@@ -7,8 +7,14 @@ function startTimer() {
         let elapsedTime = currentTime - startTime;
         let elapsedTimeInSeconds = Math.floor(elapsedTime / 1000);
         let elapsedMinutes = Math.floor(elapsedTimeInSeconds / 60);
-        let elapsedSeconds = elapsedTimeInSeconds % 60;
+        elapsedSeconds = elapsedTimeInSeconds % 60;
         document.getElementById("elapsed-time").innerHTML = elapsedMinutes + " minutes " + elapsedSeconds + " seconds";
+        if (checkCars()) {
+            console.log("checkCars is true");
+            clearInterval(intervalId);
+            submitScore();
+            showLeaderboard();
+        }       
     }, 1000);
 }
 function stopTimer() {
@@ -84,6 +90,7 @@ for (let i = 0; i < M; i++) {
     addCarToArray(car);
 }
 
+
 function addCarToArray(car) {
     let good = true;
     for (let existingCar of traffic) {
@@ -113,9 +120,20 @@ function addCarToArray(car) {
 
 animate();
 
+function checkCars() {
+    for (var i = 0; i < N*0.9; i++) {
+        if (!cars[i].damaged) {
+            console.log("best car dead");
+          return; // exit function if any car is not damaged
+        }
+      }
+      // all(90%) of cars are damaged, stop the timer
+      return true;
+      clearInterval(intervalId);
+}
+
 function save(){
     localStorage.setItem("bestBrain", JSON.stringify(bestCar.brain));
-    time = stopTimer();
 }
 
 function discard(){
@@ -142,27 +160,35 @@ function generateCars(N){
     return cars;
 }
 
+//___________SCOREBOARD______________
 //work in progress for scoreboard
 
 function getCurrentScore(M) {
-    score = M*stopTimer();
+    score = M*elapsedSeconds;
+    console.log(score);
     return score;
 }
-function addScoreToLeaderboard(name, score) {
-    var leaderboard = document.getElementById("leaderboard");
+function addScoreToLeaderboard(name, score, date) {
+    var leaderboard = document.getElementById("leaderboardTable");
     var newRow = leaderboard.insertRow(-1);
     var nameCell = newRow.insertCell(0);
     var scoreCell = newRow.insertCell(1);
+    var dateCell = newRow.insertCell(2);
     nameCell.innerHTML = name;
     scoreCell.innerHTML = score;
+    dateCell.innerHTML = date;
 }
 function submitScore() {
     var name = prompt("Enter your name:");
     var score = getCurrentScore(M);
-    addScoreToLeaderboard(name, score);
+    var today = new Date();
+    var date = today.toLocaleDateString("en-US",{month: "2-digit", day: "2-digit", year: "2-digit"});
+
+    addScoreToLeaderboard(name, score, date);
+    showLeaderboard();
 }
 function sortLeaderboard() {
-    var leaderboard = document.getElementById("leaderboard");
+    var leaderboard = document.getElementById("leaderboardTable");
     var rows = leaderboard.rows;
     var sortedRows = [];
     for (var i = 1; i < rows.length; i++) {
@@ -177,13 +203,23 @@ function sortLeaderboard() {
         leaderboard.appendChild(sortedRows[i]);
     }
 }
-function showLeaderboard() {
-    sortLeaderboard();
-    var leaderboard = document.getElement("div");
-    leaderboard.innerHTML = "Your leaderboard content goes here";
-    leaderboard.id = "leaderboard";
-    document.body.appendChild(leaderboard);
+function hideLeaderboard() {
+    document.getElementById("leaderboardContainer").style.display = "none";
 }
+
+function showLeaderboard() {
+    // Sort by highest score
+    sortLeaderboard();
+    
+    // Close and open properly
+    document.getElementById("leaderboardContainer").style.display = "block";
+    document.getElementById("close-leaderboard").onclick = function() {
+      hideLeaderboard();
+    };
+}
+  
+//___________SCOREBOARD______________
+
 
 function animate(time){
     //to update each car of traffic according to the road
@@ -219,6 +255,7 @@ function animate(time){
 
     carCtx.globalAlpha=1;
     bestCar.draw(carCtx,true);
+
 
     carCtx.restore();
 
