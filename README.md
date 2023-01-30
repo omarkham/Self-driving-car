@@ -111,9 +111,7 @@ static mutate(network, amount = 1) {
 
 ##Score Board
 A work in progress that calculates the score of the user based on the amount of traffic and number of car mutations they chose. 
-Future appendments:
-- title and make the css nicer
-- make it so you're able to see all past scores and high scores
+Able to see all past scores and high scores, and name of user, score of user, and date achieved.
 
 ##Options
 Can choose and modify mutation of cars, amount of traffic, number of AI cars. Can reset and stop the game. Can save the best car to the browser, and delete the one currently there (allows you to train the neural network)
