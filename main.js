@@ -168,18 +168,69 @@ function getCurrentScore(M) {
     console.log(score);
     return score;
 }
+
 function addScoreToLeaderboard(name, score, date) {
-    var leaderboard = document.getElementById("leaderboardTable");
-    var newRow = leaderboard.insertRow(-1);
-    var nameCell = newRow.insertCell(0);
-    var scoreCell = newRow.insertCell(1);
-    var dateCell = newRow.insertCell(2);
-    nameCell.innerHTML = name;
-    scoreCell.innerHTML = score;
-    dateCell.innerHTML = date;
+    // Get the leaderboard from local storage
+    var leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+    
+    // Add the new score to the leaderboard
+    leaderboard.push({ name: name, score: score, date: date });
+
+    // Store the leaderboard in local storage
+    localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+    
+    // Update the leaderboard table
+    updateLeaderboardTable();
 }
+
+function updateLeaderboardTable() {
+    // Get the leaderboard from local storage
+    var leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+    
+    // Sort the leaderboard by score in descending order
+    leaderboard.sort(function(a, b) {
+        return b.score - a.score;
+    });
+    
+    // Clear the leaderboard table
+    var leaderboardTable = document.getElementById("leaderboardTable");
+    while (leaderboardTable.rows.length > 0) {
+        leaderboardTable.deleteRow(0);
+    }
+    
+    var tableHead = leaderboardTable.createTHead();
+    var titleRow = tableHead.insertRow(0);
+    var nameTitle = titleRow.insertCell(0);
+    var scoreTitle = titleRow.insertCell(1);
+    var dateTitle = titleRow.insertCell(2);
+    nameTitle.innerHTML = "Name";
+    scoreTitle.innerHTML = "Score";
+    dateTitle.innerHTML = "Date";
+    nameTitle.classList.add("name-cell");
+    scoreTitle.classList.add("score-cell");
+    dateTitle.classList.add("date-cell");
+
+    // Add the new rows to the leaderboard table
+    for (var i = 0; i < leaderboard.length; i++) {
+        var row = leaderboardTable.insertRow(-1);
+        var nameCell = row.insertCell(0);
+        var scoreCell = row.insertCell(1);
+        var dateCell = row.insertCell(2);
+        nameCell.innerHTML = leaderboard[i].name;
+        scoreCell.innerHTML = leaderboard[i].score;
+        dateCell.innerHTML = leaderboard[i].date;
+        nameCell.classList.add("name-cell");
+        scoreCell.classList.add("score-cell");
+        dateCell.classList.add("date-cell");
+    }
+}
+
 function submitScore() {
     var name = prompt("Enter your name:");
+    var maxLength = 15;
+    if (name.length > maxLength) {
+        name = name.substring(0, maxLength);
+    }
     var score = getCurrentScore(M);
     var today = new Date();
     var date = today.toLocaleDateString("en-US",{month: "2-digit", day: "2-digit", year: "2-digit"});
@@ -265,4 +316,8 @@ function animate(time){
     requestAnimationFrame(animate);
 }
 
+//___________RESET THE LEADERBOARD____________
+
+//localStorage.removeItem("leaderboard");
+//updateLeaderboardTable();
 
